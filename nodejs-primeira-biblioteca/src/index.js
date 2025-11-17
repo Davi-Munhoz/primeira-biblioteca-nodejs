@@ -6,9 +6,9 @@ export function contaPalavras(texto){
     const paragrafos = extraiParagrafos(texto);
     const contagem = paragrafos.flatMap((paragrafo) => {
         if (!paragrafo) return [];
-            return verificarPalavrasDuplicadas(paragrafo);;
+        return verificarPalavrasDuplicadas(paragrafo);;
     })
-    console.log(contagem);
+    return contagem;
 }
 
 function limparTexto(texto) {
