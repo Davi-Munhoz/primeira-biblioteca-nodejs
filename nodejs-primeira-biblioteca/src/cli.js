@@ -4,6 +4,7 @@ import trataErros  from './erros/funcoesErros.js';
 import { contaPalavras } from './index.js'
 import { montaSaidaAquivo }  from './helpers.js';
 import { Command } from 'commander';
+import chalk from 'chalk';
 
 const program = new Command();
 
@@ -14,7 +15,7 @@ program
     .action((options) => {
         const { texto, destino } = options;
         if (!texto || !destino) {
-            console.error('Erro, favor inserir caminho de origem e destino');
+            console.error(chalk.red.bold('Erro, favor inserir caminho de origem e destino'));
             program.help();
             return;
         }
@@ -24,7 +25,7 @@ program
 
         try {
             processaArquivo(caminhoTexto, caminhoDestino);
-            console.log('Arquivo processado com sucesso!');
+            console.log(chalk.green.bold('Arquivo processado com sucesso!'));
         } catch (erro) {
             trataErros(erro);
         }
@@ -51,10 +52,10 @@ async function criaESalvaArquivo(listaPalavras, endereco){
     try {
         await fs.promises.mkdir(dir, { recursive: true });
         await fs.promises.writeFile(arquivoNovo, textoPalavras);
-        console.log('Arquivo criado com sucesso em', arquivoNovo);
+        console.log(chalk.green.bold(`Arquivo criado com sucesso em ${arquivoNovo}`));
     } catch (erro) {
         throw erro;
     } finally {
-        console.log('Operação finalizada');
+        console.log(chalk.green.bold('Operação finalizada'));
     }
 }
